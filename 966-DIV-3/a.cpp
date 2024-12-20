@@ -175,76 +175,48 @@ bool isPerfectSquare(ll x)
     }
     return false;
 }
-void computeLPS(string s, int n, vector<int> &lps)
-{
-    int len = 0;
-    for (int i = 1; i < n;)
-    {
-        if (s[i] == s[len])
-        {
-            len++;
-            lps[i] = len;
-            i++;
-        }
-        else
-        {
-            if (len != 0)
-            {
-                len = lps[len - 1];
-            }
-            else
-            {
-                lps[i] = 0;
-                i++;
-            }
-        }
-    }
-}
-ll KMP(string txt, string pattern, vector<int> lps)
-{
-    ll n = txt.size();
-    ll m = pattern.size();
-    ll i = 0;
-    ll j = 0;
-    ll count = 0;
-    while (i < n)
-    {
-        if (txt[i] == pattern[j])
-        {
-            ++i;
-            ++j;
-        }
-        if (j == m)
-        {
-            ++count;
-            j = lps[j - 1];
-        }
 
-        else if (pattern[j] != txt[i])
-        {
-            if (j != 0)
-                j = lps[j - 1];
-            else
-            {
-                ++i;
-            }
-        }
-    }
-    return count;
-}
 int main()
 {
     Code By Ayush
+        ll t;
+    cin >> t;
+    fl(i, t)
+    {
+        ll n;
+        cin >> n;
+        if (n < 99)
+        {
+            pn continue;
+        }
+        ll temp = n;
 
-    string txt;
-    cin >> txt;
-    string s;
-    cin >> s;
-    int n = s.size();
-    vector<int> lps(n, 0);
-    lps[0] = 0;
-    computeLPS(s, n, lps);
-    cout << KMP(txt, s, lps);
+        vll v;
+        while (temp > 0)
+        {
+            v.push_back(temp % 10);
+            temp = temp / 10;
+        }
+        reverse(vr(v));
+        // cout << v << endl;
+        if(v[0]>1 || v[1]!=0) {
+            pn
+            continue;
+        }
+        if (v.size() == 3)
+        {
+            if (v[2] != 0 && v[2] >= 2)
+                py else pn
+        }
+        else if (v.size() >= 4 && v[2] != 0)
+        {
+            py
+        }
+        else
+        {
+            pn
+        }
+    }
 
     return 0;
 }

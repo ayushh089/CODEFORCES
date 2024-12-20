@@ -61,9 +61,9 @@ ostream &operator<<(ostream &ostream, const vector<T> &c)
 
 template <typename T>
 void print(T &&t) { cout << t << "\n"; }
-void printarr(ll arr[], ll n)
+void printv(ll v[], ll n)
 {
-    fl(i, n) cout << arr[i] << " ";
+    fl(i, n) cout << v[i] << " ";
     cout << "\n";
 }
 template <typename T>
@@ -175,76 +175,39 @@ bool isPerfectSquare(ll x)
     }
     return false;
 }
-void computeLPS(string s, int n, vector<int> &lps)
-{
-    int len = 0;
-    for (int i = 1; i < n;)
-    {
-        if (s[i] == s[len])
-        {
-            len++;
-            lps[i] = len;
-            i++;
-        }
-        else
-        {
-            if (len != 0)
-            {
-                len = lps[len - 1];
-            }
-            else
-            {
-                lps[i] = 0;
-                i++;
-            }
-        }
-    }
-}
-ll KMP(string txt, string pattern, vector<int> lps)
-{
-    ll n = txt.size();
-    ll m = pattern.size();
-    ll i = 0;
-    ll j = 0;
-    ll count = 0;
-    while (i < n)
-    {
-        if (txt[i] == pattern[j])
-        {
-            ++i;
-            ++j;
-        }
-        if (j == m)
-        {
-            ++count;
-            j = lps[j - 1];
-        }
 
-        else if (pattern[j] != txt[i])
-        {
-            if (j != 0)
-                j = lps[j - 1];
-            else
-            {
-                ++i;
-            }
-        }
-    }
-    return count;
-}
 int main()
 {
     Code By Ayush
+        ll t;
+    cin >> t;
+    fl(i, t)
+    {
+        vll v(3);
+        cin >> v;
 
-    string txt;
-    cin >> txt;
-    string s;
-    cin >> s;
-    int n = s.size();
-    vector<int> lps(n, 0);
-    lps[0] = 0;
-    computeLPS(s, n, lps);
-    cout << KMP(txt, s, lps);
+        sort(vr(v));
+
+        ll inc = 5;
+        while (inc > 0)
+        {
+            if (v[0] <= v[1] && v[0] <= v[2])
+            {
+                v[0]++;
+            }
+            else if (v[1] <= v[0] && v[1] <= v[2])
+            {
+                v[1]++;
+            }
+            else
+            {
+                v[2]++;
+            }
+            inc--;
+            sort(vr(v));
+        }
+        cout << v[0] * v[1] * v[2] << endl;
+    }
 
     return 0;
 }

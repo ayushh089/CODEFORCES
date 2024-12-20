@@ -175,76 +175,44 @@ bool isPerfectSquare(ll x)
     }
     return false;
 }
-void computeLPS(string s, int n, vector<int> &lps)
+int hammingDistance(const string &a, const string &b)
 {
-    int len = 0;
-    for (int i = 1; i < n;)
+    int distance = 0;
+    for (size_t i = 0; i < a.length(); ++i)
     {
-        if (s[i] == s[len])
+        if (a[i] != b[i])
         {
-            len++;
-            lps[i] = len;
-            i++;
-        }
-        else
-        {
-            if (len != 0)
-            {
-                len = lps[len - 1];
-            }
-            else
-            {
-                lps[i] = 0;
-                i++;
-            }
+            ++distance;
         }
     }
+    return distance;
 }
-ll KMP(string txt, string pattern, vector<int> lps)
+int minHammingDistance(const string &A, const string &B)
 {
-    ll n = txt.size();
-    ll m = pattern.size();
-    ll i = 0;
-    ll j = 0;
-    ll count = 0;
-    while (i < n)
-    {
-        if (txt[i] == pattern[j])
-        {
-            ++i;
-            ++j;
-        }
-        if (j == m)
-        {
-            ++count;
-            j = lps[j - 1];
-        }
+    int N = A.length();
+    int M = B.length();
+    int minDistance = M; // Initialize with the maximum possible distance
 
-        else if (pattern[j] != txt[i])
-        {
-            if (j != 0)
-                j = lps[j - 1];
-            else
-            {
-                ++i;
-            }
-        }
+    for (int i = 0; i <= N - M; ++i)
+    {
+        string substringA = A.substr(i, M);
+        int distance = hammingDistance(substringA, B);
+        minDistance = min(minDistance, distance);
     }
-    return count;
+
+    return minDistance;
 }
 int main()
 {
     Code By Ayush
-
-    string txt;
-    cin >> txt;
-    string s;
-    cin >> s;
-    int n = s.size();
-    vector<int> lps(n, 0);
-    lps[0] = 0;
-    computeLPS(s, n, lps);
-    cout << KMP(txt, s, lps);
+        ll t;
+    cin >> t;
+    fl(i, t)
+    {
+        string a, b;
+        cin >> a >> b;
+        cout << minHammingDistance(a, b);
+    }
 
     return 0;
 }

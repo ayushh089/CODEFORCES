@@ -1,0 +1,1 @@
+{"name":"Local: b","url":"c:\\Users\\gupta\\OneDrive\\Desktop\\CODEFORCES\\141_STARTERS\\b.cpp","tests":[{"id":1720018246577,"input":"3\n5\n2 4 3 2 2\n3\n3 3 3\n7\n1 3 7 5 1 4 3","output":"4\n0\n5"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\gupta\\OneDrive\\Desktop\\CODEFORCES\\141_STARTERS\\b.cpp","group":"local","local":true}

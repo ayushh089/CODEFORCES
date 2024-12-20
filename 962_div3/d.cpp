@@ -175,76 +175,31 @@ bool isPerfectSquare(ll x)
     }
     return false;
 }
-void computeLPS(string s, int n, vector<int> &lps)
-{
-    int len = 0;
-    for (int i = 1; i < n;)
-    {
-        if (s[i] == s[len])
-        {
-            len++;
-            lps[i] = len;
-            i++;
-        }
-        else
-        {
-            if (len != 0)
-            {
-                len = lps[len - 1];
-            }
-            else
-            {
-                lps[i] = 0;
-                i++;
-            }
-        }
-    }
-}
-ll KMP(string txt, string pattern, vector<int> lps)
-{
-    ll n = txt.size();
-    ll m = pattern.size();
-    ll i = 0;
-    ll j = 0;
-    ll count = 0;
-    while (i < n)
-    {
-        if (txt[i] == pattern[j])
-        {
-            ++i;
-            ++j;
-        }
-        if (j == m)
-        {
-            ++count;
-            j = lps[j - 1];
-        }
 
-        else if (pattern[j] != txt[i])
-        {
-            if (j != 0)
-                j = lps[j - 1];
-            else
-            {
-                ++i;
-            }
-        }
-    }
-    return count;
-}
 int main()
 {
     Code By Ayush
-
-    string txt;
-    cin >> txt;
-    string s;
-    cin >> s;
-    int n = s.size();
-    vector<int> lps(n, 0);
-    lps[0] = 0;
-    computeLPS(s, n, lps);
-    cout << KMP(txt, s, lps);
+        ll t;
+    cin >> t;
+    fl(i, t)
+    {
+        int n, x;
+        cin >> n >> x;
+        int count = 0;
+        for (int a = 1; a <= min(n, x); ++a)
+        {
+            for (int b = 1; b <= min(n / a, x - a); ++b)
+            {
+                int maxkitna = n - a * b;
+                int maxc = min(x - a - b, maxkitna / (a + b));
+                if (maxc > 0)
+                {
+                    count += maxc;
+                }
+            }
+        }
+        cout << count << endl;
+    }
 
     return 0;
 }

@@ -175,76 +175,55 @@ bool isPerfectSquare(ll x)
     }
     return false;
 }
-void computeLPS(string s, int n, vector<int> &lps)
-{
-    int len = 0;
-    for (int i = 1; i < n;)
-    {
-        if (s[i] == s[len])
-        {
-            len++;
-            lps[i] = len;
-            i++;
-        }
-        else
-        {
-            if (len != 0)
-            {
-                len = lps[len - 1];
-            }
-            else
-            {
-                lps[i] = 0;
-                i++;
-            }
-        }
-    }
-}
-ll KMP(string txt, string pattern, vector<int> lps)
-{
-    ll n = txt.size();
-    ll m = pattern.size();
-    ll i = 0;
-    ll j = 0;
-    ll count = 0;
-    while (i < n)
-    {
-        if (txt[i] == pattern[j])
-        {
-            ++i;
-            ++j;
-        }
-        if (j == m)
-        {
-            ++count;
-            j = lps[j - 1];
-        }
 
-        else if (pattern[j] != txt[i])
-        {
-            if (j != 0)
-                j = lps[j - 1];
-            else
-            {
-                ++i;
-            }
-        }
-    }
-    return count;
-}
 int main()
 {
     Code By Ayush
+        ll t;
+    cin >> t;
+    fl(i, t)
+    {
+        int n, k;
+        cin >> n >> k;
+        vll arr(n);
+        cin >> arr;
+        int ind = -1;
+        bool canWin = true;
+        bool yeah=false;
+        for (int i = 0; i < n; i++)
+        {
+            int a = arr[i];
+            canWin=true;
+            for (int j = 0; j < n; j++)
+            {
+                if (i != j)
+                {
+                    int b = arr[j];
+                    int val = abs(a - b);
+                    if (val % k == 0)
+                    {
+                        canWin = false;
+                        break;
+                    }
+                }
+            }
+            if (canWin == true)
+            {
+                yeah=true;
+                ind = i;
+                break;
+            }
+        }
 
-    string txt;
-    cin >> txt;
-    string s;
-    cin >> s;
-    int n = s.size();
-    vector<int> lps(n, 0);
-    lps[0] = 0;
-    computeLPS(s, n, lps);
-    cout << KMP(txt, s, lps);
+        if (yeah == true)
+        {
+            cout<<"YES\n";
+            cout<<ind+1<<endl;
+        }
+        else{
+            cout<<"NO\n";
+        }
+    }
 
     return 0;
 }

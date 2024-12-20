@@ -175,76 +175,51 @@ bool isPerfectSquare(ll x)
     }
     return false;
 }
-void computeLPS(string s, int n, vector<int> &lps)
-{
-    int len = 0;
-    for (int i = 1; i < n;)
-    {
-        if (s[i] == s[len])
-        {
-            len++;
-            lps[i] = len;
-            i++;
-        }
-        else
-        {
-            if (len != 0)
-            {
-                len = lps[len - 1];
-            }
-            else
-            {
-                lps[i] = 0;
-                i++;
-            }
-        }
-    }
-}
-ll KMP(string txt, string pattern, vector<int> lps)
-{
-    ll n = txt.size();
-    ll m = pattern.size();
-    ll i = 0;
-    ll j = 0;
-    ll count = 0;
-    while (i < n)
-    {
-        if (txt[i] == pattern[j])
-        {
-            ++i;
-            ++j;
-        }
-        if (j == m)
-        {
-            ++count;
-            j = lps[j - 1];
-        }
 
-        else if (pattern[j] != txt[i])
-        {
-            if (j != 0)
-                j = lps[j - 1];
-            else
-            {
-                ++i;
-            }
-        }
-    }
-    return count;
-}
 int main()
 {
     Code By Ayush
+        ll t;
+    cin >> t;
+    fl(i, t)
+    {
+        ll n;
+        cin >> n;
+        vll v(n);
+        cin >> v;
 
-    string txt;
-    cin >> txt;
-    string s;
-    cin >> s;
-    int n = s.size();
-    vector<int> lps(n, 0);
-    lps[0] = 0;
-    computeLPS(s, n, lps);
-    cout << KMP(txt, s, lps);
+        vll minRInd(n, 0);
+        minRInd[n - 1] = n;
+        for (int i = n - 2; i >= 0; i--)
+        {
+            if (v[i] != v[i + 1])
+            {
+                minRInd[i] = i + 1;
+            }
+            else
+            {
+                minRInd[i] = minRInd[i + 1];
+            }
+        }
+       
+        ll q_n;
+        cin >> q_n;
+        for (int i = 0; i < q_n; i++)
+        {
+            ll x, y;
+            cin >> x >> y;
+            --x;
+            --y;
+            if (minRInd[x] <= y)
+            {
+                cout << x + 1 << " " << minRInd[x] + 1<<endl;
+            }
+            else
+            {
+                cout << -1 << " " << -1 << endl;
+            }
+        }
+    }
 
     return 0;
 }
